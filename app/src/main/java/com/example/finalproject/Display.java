@@ -2,9 +2,11 @@ package com.example.finalproject;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
 public class Display extends View {
@@ -59,6 +61,16 @@ public class Display extends View {
 
         if(mBoard.getWidth() <= 0) return;
         Paint paint = new Paint();
+        paint.setColor(Color.red);
+
+        canvas.drawRect(0,0,bw,bh,paint);
+        paint.setColor(Color.black);
+
+        for(int i = 0, i < Board.COLS ; i++){
+            canvas.drawLine(cw*(i+1),0,cw(i+1),bh,paint);
+        }
+
+        for
 
     }
 
