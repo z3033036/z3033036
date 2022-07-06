@@ -3,8 +3,9 @@ package com.example.finalproject;
 public class Cell {
     public enum E_STATUS{
         None,
-        Black,
-        White
+        koma1,
+        koma2,
+        koma3,
     }
 
     private float width;   //横
@@ -16,7 +17,7 @@ public class Cell {
 
     public void setWidth(float width) {
         this.width = width;
-    }
+    }//各種数値設定
     public float getWidth() {
         return width;
     }
