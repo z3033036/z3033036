@@ -1,8 +1,10 @@
 package com.example.finalproject;
 
+import com.example.finalproject.Cell.E_STATUS;
+
 public class Board {
-    public static final int COLS = 10;//盤面の縦マス数
-    public static final int ROWS = 10;//盤面の横マス数
+    public static final int COLS = 8;//盤面の縦マス数
+    public static final int ROWS = 8;//盤面の横マス数
 
     private int width;
     private int height;

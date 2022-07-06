@@ -16,7 +16,7 @@ public class Cell {
 
     public void setWidth(float width) {
         this.width = width;
-    }
+    }//各種数値設定
     public float getWidth() {
         return width;
     }
