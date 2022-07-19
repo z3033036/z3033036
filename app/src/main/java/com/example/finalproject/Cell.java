@@ -3,9 +3,9 @@ package com.example.finalproject;
 public class Cell {
     public enum E_STATUS{
         None,
-        koma1,
-        koma2,
-        koma3,
+        black,
+        blue,
+        red,
     }
 
     private float width;   //横

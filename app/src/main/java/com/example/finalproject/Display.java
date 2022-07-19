@@ -86,11 +86,11 @@ public class Display extends View {
                 Cell cell = cells[i][j];
                 Cell.E_STATUS st = cell.getStatus();
 
-                if (st == E_STATUS.koma1) {
+                if (st == E_STATUS.black) {
                     paint.setColor(Color.BLACK);
-                } else  if (st == E_STATUS.koma2) {
-                    paint.setColor(Color.WHITE);
-                } else  if (st == E_STATUS.koma3) {
+                } else  if (st == E_STATUS.blue) {
+                    paint.setColor(Color.BLUE);
+                } else  if (st == E_STATUS.red) {
                     paint.setColor((Color.RED));
                 }
 

@@ -20,10 +20,10 @@ public class Board {
                 cells[i][j] = new Cell();
             }
         }
-        cells[7][0].setStatus(E_STATUS.koma1);//駒の配置
-        cells[7][1].setStatus(E_STATUS.koma2);
-        cells[7][2].setStatus(E_STATUS.koma3);
-        turn = E_STATUS.koma2;
+        cells[7][0].setStatus(E_STATUS.black);//駒の配置
+        cells[7][1].setStatus(E_STATUS.blue);
+        cells[7][2].setStatus(E_STATUS.red);
+        turn = E_STATUS.black;
     }
     public void setSize(int width, int height){
         int sz = width < height ? width : height;
@@ -91,17 +91,18 @@ public class Board {
 
     public void changeCell(int r, int c, Cell.E_STATUS newStatus) throws Exception{
         Cell cell = cells[r][c];
-        if (cell.getStatus() != E_STATUS.None){
+        if (cell.getStatus() == E_STATUS.None){
             throw new Exception("Cell is not empty.");
         }
         cell.setStatus(newStatus);
     }
 
-    public void movekoma1(int r, int c, Cell.E_STATUS newStatus) throws Exception{
+    public void movekoma1(int r, int c, Cell.E_STATUS newStatus){
         Cell cell = cells[r][c];
-        if (cell.getStatus() == E_STATUS.koma1){
-            cells[r-1][c].setStatus(E_STATUS.koma2); }
-        cells[r][c+1].setStatus(E_STATUS.None);
+        if (cell.getStatus() == E_STATUS.black){
+            cells[r-1][c].setStatus(E_STATUS.blue);
+            cells[r][c+1].setStatus(E_STATUS.None);
+        }
         cell.setStatus(newStatus);
     }
 
@@ -110,10 +111,10 @@ public class Board {
     }
 
     public void changeTurn(){
-        if (this.turn == E_STATUS.koma1){
-            this.turn = E_STATUS.koma2;
+        if (this.turn == E_STATUS.black){
+            this.turn = E_STATUS.blue;
         } else {
-            this.turn = E_STATUS.koma1;
+            this.turn = E_STATUS.black;
         }
     }
 }
