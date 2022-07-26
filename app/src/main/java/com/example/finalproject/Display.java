@@ -32,6 +32,7 @@ public class Display extends View {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
@@ -40,11 +41,15 @@ public class Display extends View {
             case MotionEvent.ACTION_UP:
                 int r = (int) (y / mBoard.getCellHeidht());
                 int c = (int) (x / mBoard.getCellWidth());
+                int a = mBoard.BlackCell();
+                mBoard.setCell(r, c, a);
                 if (r < Board.ROWS && c < Board.COLS) {
                     try {
-                        mBoard.movekoma1(r, c, mBoard.getTurn());
+                        mBoard.MoveCells(r, c, mBoard.getTurn());
                         mBoard.changeCell(r, c, mBoard.getTurn());
-                        mBoard.changeTurn();
+                        if (mBoard.BlackCell() + mBoard.WhiteCell() == 6) {
+                            finish();
+                        }
                     } catch (Exception e) {
                         Toast.makeText(this.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -53,8 +58,22 @@ public class Display extends View {
                 break;
             default:
                 return true;
-            }
-            return true;
+        }
+        return true;
+    }
+
+    public void finish(){
+        showCount();
+    }
+
+    public void showCount(){
+        String msg = "おわりです";
+        Toast.makeText(this.getContext(),msg,Toast.LENGTH_LONG).show();
+    }
+
+    public void re(){
+        mBoard = new Board();
+        invalidate();
     }
 
     private void drawBoard(Canvas canvas) {
@@ -79,7 +98,6 @@ public class Display extends View {
         }
         paint.setAntiAlias(true);
 
-
         Cell[][] cells = mBoard.getCells();
         for (int i = 0; i < Board.ROWS; i++) {
             for (int j = 0; j < Board.COLS; j++) {
@@ -92,10 +110,21 @@ public class Display extends View {
                     paint.setColor(Color.BLUE);
                 } else  if (st == E_STATUS.red) {
                     paint.setColor((Color.RED));
+                } else if (st == E_STATUS.white){
+                    paint.setColor((Color.WHITE));
                 }
 
-                if (st != E_STATUS.None) {
-                    canvas.drawCircle(cell.getCx(), cell.getCy(), (float) (cw * 0.30), paint);
+                if (st == E_STATUS.black) {
+                    canvas.drawCircle(cell.getCx(), cell.getCy(), (float) (cw * 0.40), paint);
+                }
+                if (st == E_STATUS.blue) {
+                    canvas.drawCircle(cell.getCx(), cell.getCy(), (float) (cw * 0.40), paint);
+                }
+                if (st == E_STATUS.red) {
+                    canvas.drawCircle(cell.getCx(), cell.getCy(), (float) (cw * 0.40), paint);
+                }
+                if (st == E_STATUS.white) {
+                    canvas.drawCircle(cell.getCx(), cell.getCy(), (float) (cw * 0.40), paint);
                 }
             }
         }

@@ -1,10 +1,14 @@
 package com.example.finalproject;
 
+import android.widget.Toast;
+
 import com.example.finalproject.Cell.E_STATUS;
 
+import java.util.ArrayList;
+
 public class Board {
-    public static final int COLS = 8;//盤面の縦マス数
-    public static final int ROWS = 8;//盤面の横マス数
+    public static final int COLS = 10;//盤面の縦マス数
+    public static final int ROWS = 10;//盤面の横マス数
 
     private int width;
     private int height;
@@ -20,10 +24,16 @@ public class Board {
                 cells[i][j] = new Cell();
             }
         }
-        cells[7][0].setStatus(E_STATUS.black);//駒の配置
-        cells[7][1].setStatus(E_STATUS.blue);
-        cells[7][2].setStatus(E_STATUS.red);
-        turn = E_STATUS.black;
+        cells[9][0].setStatus(E_STATUS.black);
+        cells[9][9].setStatus(E_STATUS.black);
+        cells[9][1].setStatus(E_STATUS.blue);
+        cells[9][8].setStatus(E_STATUS.blue);
+        cells[9][2].setStatus(E_STATUS.red);
+        cells[9][7].setStatus(E_STATUS.red);
+        cells[9][4].setStatus(E_STATUS.white);
+        cells[9][5].setStatus(E_STATUS.white);
+
+        turn = E_STATUS.None;
     }
     public void setSize(int width, int height){
         int sz = width < height ? width : height;
@@ -47,7 +57,7 @@ public class Board {
     }
 
     public void setHeight(int height) {
-        this.height = (int)(height / Board.ROWS) * Board.ROWS;//行数で割り切れない場合は余りを捨てる。
+        this.height = (int)(height / Board.ROWS) * Board.ROWS;
         float cellH = this.getCellHeidht();
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
@@ -91,23 +101,57 @@ public class Board {
 
     public void changeCell(int r, int c, Cell.E_STATUS newStatus) throws Exception{
         Cell cell = cells[r][c];
-        if (cell.getStatus() == E_STATUS.None){
-            throw new Exception("Cell is not empty.");
+        if (cell.getStatus() == E_STATUS.black){
+            throw new Exception("2マス前に動くことができます.");
         }
         cell.setStatus(newStatus);
     }
 
-    public void movekoma1(int r, int c, Cell.E_STATUS newStatus){
+    public void setCell(int r, int c, int a){
+        if(a < 6){
+        cells[r-1][c-1].setStatus(E_STATUS.black); }
+    }
+
+
+
+    public void MoveCells(int r, int c, Cell.E_STATUS newStatus){
         Cell cell = cells[r][c];
         if (cell.getStatus() == E_STATUS.black){
-            cells[r-1][c].setStatus(E_STATUS.blue);
-            cells[r][c+1].setStatus(E_STATUS.None);
+            cells[r-3][c].setStatus(E_STATUS.black); }
+        else if(cell.getStatus() == E_STATUS.blue){
+            cells[r-2][c].setStatus(E_STATUS.blue);}
+        else if(cell.getStatus() == E_STATUS.red){
+            cells[r-1][c].setStatus(E_STATUS.red);}
+        else if(cell.getStatus() == E_STATUS.white){
+            cells[r-1][c].setStatus(E_STATUS.white);
         }
         cell.setStatus(newStatus);
     }
 
     public Cell.E_STATUS getTurn(){
         return this.turn;
+    }
+
+
+
+    public int countBlack(Cell.E_STATUS newStatus){
+        int n = 0;
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLS; j++){
+                if(cells[i][j].getStatus() == newStatus){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
+
+    public int BlackCell(){
+        return countBlack(E_STATUS.black);
+    }
+    public int WhiteCell(){
+        return countBlack(E_STATUS.white);
     }
 
     public void changeTurn(){

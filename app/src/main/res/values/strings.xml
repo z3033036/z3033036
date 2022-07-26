@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">改変チェス</string>
+
+    <string name="menu_item1">rule</string>
+    <string name="menu_item2">finish</string>
+    <string name="menu_item3">exit</string>
+
 </resources>

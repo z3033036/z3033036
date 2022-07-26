@@ -6,6 +6,7 @@ public class Cell {
         black,
         blue,
         red,
+        white;
     }
 
     private float width;   //横
